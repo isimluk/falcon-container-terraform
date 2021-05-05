@@ -2,6 +2,10 @@
 
 set -x
 
+# TODO: templatize those
+CLUSTER_NAME=cluster_name
+GCP_REGION=us-central1
+
 
 main(){
     echo "Welcome on the admin instance for your gke demo cluster"
@@ -14,7 +18,7 @@ main(){
 }
 
 configure_gke_acccess(){
-    gcloud container clusters get-credentials
+    gcloud container clusters get-credentials "$CLUSTER_NAME" cluster_name --region "$GCP_REGION"
     kubect get pods
 }
 
@@ -25,14 +29,13 @@ push_falcon_sensor_to_gcr(){
 }
 
 download_falcon_sensor(){
-    docker pull -q $tools_image
     echo "TODO download_falcon_sensor"
 }
 
 install_deps(){
     snap install docker --classic
-    gcloud components install kubectl
-    docker pull "$tools_image"
+    snap install kubectl --classic
+    docker pull -q "$tools_image"
 }
 
 progname=$(basename "$0")

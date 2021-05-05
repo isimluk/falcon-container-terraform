@@ -30,3 +30,12 @@ resource "google_service_account" "gke-admin-vm" {
   account_id   = "service-account-id"
   display_name = "Service Account for GKE Admin VM"
 }
+
+resource "google_project_iam_binding" "gke-admin-vm-admins-clusters" {
+  role    = "roles/container.admin"
+  members = [
+    "serviceAccount:${google_service_account.gke-admin-vm.email}"
+  ]
+}
+
+
