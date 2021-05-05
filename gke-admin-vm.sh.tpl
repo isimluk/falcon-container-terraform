@@ -2,13 +2,8 @@
 
 export HOME=/root
 
-echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && tail -f /etc/motd' >> /etc/bash.bashrc
-
-set -x
-
 main(){
-    echo "Welcome on the admin instance for your gke demo cluster"
-
+    set -x
     install_deps
 
     download_falcon_sensor
@@ -16,12 +11,7 @@ main(){
     configure_gke_access
 
     deploy_vulnerable_app
-
     set +x
-    echo "Demo initialisation completed"
-    for pid in $(ps aux | grep tail.-f./etc/motd | awk '{print $2}'); do
-        kill "$pid"
-    done
 }
 
 deploy_vulnerable_app(){
@@ -63,5 +53,20 @@ err_handler() {
 
 trap 'err_handler $LINENO' ERR
 
-main "$@" >> /etc/motd 2>&1
+
+MOTD=/etc/motd
+LIVE_LOG=$MOTD.log
+
+echo "Welcome to the admin instance for your gke demo cluster. Installation log follows" > $LIVE_LOG
+echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && tail -f '$LIVE_LOG >> /etc/bash.bashrc
+
+main "$@" >> $LIVE_LOG 2>&1
+
+echo "Demo initialisation completed" >> $LIVE_LOG
+echo "To get pods run: sudo kubectl get pods" >> $LIVE_LOG
+mv $LIVE_LOG $MOTD
+
+for pid in $(ps aux | grep tail.-f./etc/motd | awk '{print $2}'); do
+    kill "$pid"
+done
 
