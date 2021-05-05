@@ -47,7 +47,7 @@ download_falcon_sensor(){
 }
 
 install_deps(){
-    snap install docker --classic
+    snap install docker
     snap install kubectl --classic
     docker pull -q "$tools_image"
 }
