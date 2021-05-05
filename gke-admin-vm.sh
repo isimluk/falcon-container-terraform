@@ -4,7 +4,7 @@ set -x
 
 # TODO: templatize those
 CLUSTER_NAME=cluster_name
-GCP_REGION=us-central1
+GCP_ZONE=us-central1-c
 
 
 main(){
@@ -15,11 +15,15 @@ main(){
     push_falcon_sensor_to_gcr
     configure_gke_access
 
+    deploy_vulnerable_app
 }
 
-configure_gke_acccess(){
-    gcloud container clusters get-credentials "$CLUSTER_NAME" cluster_name --region "$GCP_REGION"
-    kubect get pods
+deploy_vulnerable_app(){
+    kubectl apply -f https://raw.githubusercontent.com/isimluk/vulnapp/master/vulnerable.example.yaml
+}
+
+configure_gke_access(){
+    gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$GCP_ZONE"
 }
 
 tools_image=quay.io/crowdstrike/cloud-tools-image
