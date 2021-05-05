@@ -1,5 +1,5 @@
 resource "google_compute_instance" "vm_instance" {
-  name         = "gke-admin-instance"
+  name         = "gke_admin_vm"
   machine_type = "f1-micro"
   zone         = var.zone
 
@@ -17,5 +17,5 @@ resource "google_compute_instance" "vm_instance" {
     }
   }
 
-  metadata_startup_script = "echo hi > /etc/motd"
+  metadata_startup_script = file("gke_admin_vm.sh")
 }
