@@ -25,7 +25,7 @@ push_falcon_sensor_to_gcr(){
 }
 
 download_falcon_sensor(){
-    docker pull $tools_image
+    docker pull -q $tools_image
     echo "TODO download_falcon_sensor"
 }
 
