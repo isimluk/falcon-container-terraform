@@ -1,14 +1,18 @@
 #!/bin/bash
 
-set -x
-
 # TODO: templatize those
 CLUSTER_NAME=cluster_name
 GCP_ZONE=us-central1-c
 
+export HOME=/root
+
+echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && tail -f /etc/motd' >> /etc/bash.bashrc
+
+set -x
 
 main(){
     echo "Welcome on the admin instance for your gke demo cluster"
+
     install_deps
 
     download_falcon_sensor
@@ -16,6 +20,12 @@ main(){
     configure_gke_access
 
     deploy_vulnerable_app
+
+    set +x
+    echo "Demo initialisation completed"
+    for pid in $(ps aux | grep tail.-f./etc/motd | awk '{print $2}'); do
+        kill "$pid"
+    done
 }
 
 deploy_vulnerable_app(){
