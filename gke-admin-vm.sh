@@ -2,16 +2,37 @@
 
 set -x
 
-echo "HI $USER $(whoami)" >> /etc/motd
+
 main(){
-    install_deps >> /etc/motd 2>&1
+    echo "Welcome on the admin instance for your gke demo cluster"
+    install_deps
+
+    download_falcon_sensor
+    push_falcon_sensor_to_gcr
+    configure_gke_access
+
+}
+
+configure_gke_acccess(){
+    gcloud container clusters get-credentials
+    kubect get pods
+}
+
+tools_image=quay.io/crowdstrike/cloud-tools-image
+
+push_falcon_sensor_to_gcr(){
+    echo "TODO push_falcon_sensor_to_gcr"
+}
+
+download_falcon_sensor(){
+    docker pull $tools_image
+    echo "TODO download_falcon_sensor"
 }
 
 install_deps(){
-    snap install tmux --classic
-    chown -f -R "$USER" ~/.kube
-    sudo addgroup --system docker
-    sudo adduser "$USER" docker
+    snap install docker --classic
+    gcloud components install kubectl
+    docker pull "$tools_image"
 }
 
 progname=$(basename "$0")
@@ -27,5 +48,5 @@ err_handler() {
 
 trap 'err_handler $LINENO' ERR
 
-main "$@"
+main "$@" >> /etc/motd 2>&1
 
