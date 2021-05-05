@@ -11,10 +11,8 @@ resource "google_compute_instance" "vm_instance" {
 
   network_interface {
     # A default network is created for all GCP projects
-    network    = google_compute_network.vpc.name
-    subnetwork = google_compute_subnetwork.subnet.name
-    access_config {
-    }
+    network = "default"
+    access_config {}
   }
 
   metadata_startup_script = file("gke-admin-vm.sh")
