@@ -18,6 +18,16 @@ This terraform demo
    terraform init
    terraform apply
    ```
+
+ - Get access to the admin VM that manages the GKE
+   ```
+   terraform output admin_access
+   ```
+   or directly
+   ```
+   $(terraform output admin_access | tr -d '"')
+   ```
+
  - Tear down the demo
    ```
    terraform destroy
