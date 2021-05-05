@@ -1,5 +1,5 @@
 variable "project_id" {
-  description = "project id"
+  description = "GCP Project ID (project needs to exist already) (Alternatively, set env variable TF_VAR_project_id)"
 }
 
 variable "region" {
@@ -8,18 +8,6 @@ variable "region" {
 
 variable "zone" {
   description = "zone"
-}
-
-variable "falcon_client_id" {
-  description = "OAuth2 API Credentials for CrowdStrike Falcon platform (used to retrieve container image)"
-}
-
-variable "falcon_client_secret" {
-  description = "OAuth2 API Credentials for CrowdStrike Falcon platform (used to retrieve container image)"
-}
-
-variable "falcon_cid" {
-  description = "CrowdStrike Falcon CID (full string)"
 }
 
 provider "google" {

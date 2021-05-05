@@ -1,9 +1,15 @@
 # PLEASE change the following variables
 
 project_id = "mylab"
-falcon_client_id = ""
-falcon_client_secret = ""
-falcon_cid = ""
+
+
+# Do not store secrets here Use environment variables instead
+# Example:   export TF_VAR_falcon_client_id="ASDF123"
+
+# falcon_client_id = ""
+# falcon_client_secret = ""
+# falcon_client_secret = ""
+# falcon_cid = ""
 
 
 

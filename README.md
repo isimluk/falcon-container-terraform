@@ -6,10 +6,6 @@ This terraform demo
  * enables container registry
 
 ### Usage
- - Edit [terraform.tfvars](terraform.tfvars)
-   ```
-   vi terraform.tfvars
-   ```
 
  - Spin up the demo
    ```

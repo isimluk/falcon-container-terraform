@@ -39,6 +39,8 @@ push_falcon_sensor_to_gcr(){
 }
 
 download_falcon_sensor(){
+    export FALCON_CLIENT_ID=$(gcloud secrets versions access latest --secret="FALCON_CLIENT_ID")
+    export FALCON_CLIENT_SECRET=$(gcloud secrets versions access latest --secret="FALCON_CLIENT_SECRET")
     echo "TODO download_falcon_sensor"
 }
 
