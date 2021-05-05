@@ -18,4 +18,15 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   metadata_startup_script = file("gke-admin-vm.sh")
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = google_service_account.gke-admin-vm.email
+    scopes = ["cloud-platform"]
+  }
+}
+
+resource "google_service_account" "gke-admin-vm" {
+  account_id   = "service-account-id"
+  display_name = "Service Account for GKE Admin VM"
 }
