@@ -15,7 +15,7 @@ resource "google_compute_instance" "vm_instance" {
     access_config {}
   }
 
-  metadata_startup_script = file("gke-admin-vm.sh")
+  metadata_startup_script = data.template_file.gke-admin-vm.rendered
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
@@ -36,4 +36,10 @@ resource "google_project_iam_binding" "gke-admin-vm-admins-clusters" {
   ]
 }
 
-
+data "template_file" "gke-admin-vm" {
+  template = file("gke-admin-vm.sh.tpl")
+  vars = {
+    GCP_ZONE = var.zone
+    CLUSTER_NAME = google_container_cluster.primary.name
+  }
+}

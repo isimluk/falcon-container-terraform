@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# TODO: templatize those
-CLUSTER_NAME=cluster_name
-GCP_ZONE=us-central1-c
-
 export HOME=/root
 
 echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && tail -f /etc/motd' >> /etc/bash.bashrc
@@ -33,7 +29,7 @@ deploy_vulnerable_app(){
 }
 
 configure_gke_access(){
-    gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$GCP_ZONE"
+    gcloud container clusters get-credentials "${CLUSTER_NAME}" --zone "${GCP_ZONE}"
 }
 
 tools_image=quay.io/crowdstrike/cloud-tools-image
