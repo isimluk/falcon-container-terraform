@@ -17,11 +17,12 @@ main(){
 }
 
 deploy_falcon_container_sensor(){
+    mkdir -p /yaml
     injector_file="/yaml/injector.yaml"
     docker run --rm --entrypoint installer "$FALCON_IMAGE_URI" -cid "$CID" -image "$FALCON_IMAGE_URI" > "$injector_file"
     kubectl apply -f "$injector_file"
 
-    kubectl wait --for=condition=ready pod -n falcon-system injector
+    kubectl wait --for=condition=ready pod -n falcon-system -l app=injector
 }
 
 deploy_vulnerable_app(){
