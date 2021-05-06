@@ -25,7 +25,7 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 resource "google_service_account" "gke-admin-vm" {
-  account_id   = "service-account-id"
+  account_id   = "se-demo-gke-admin-vm"
   display_name = "Service Account for GKE Admin VM"
 }
 
