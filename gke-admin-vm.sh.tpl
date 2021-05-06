@@ -140,7 +140,7 @@ main "$@" >> $LIVE_LOG 2>&1
 
 mv $LIVE_LOG $MOTD
 
-for pid in $(ps aux | grep tail.-f./etc/motd | awk '{print $2}'); do
+for pid in $(ps aux | grep tail.-n.1000.-f./etc/motd | awk '{print $2}'); do
     kill "$pid"
 done
 
