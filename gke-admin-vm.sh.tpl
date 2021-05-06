@@ -26,7 +26,9 @@ deploy_falcon_container_sensor(){
 }
 
 deploy_vulnerable_app(){
-    kubectl apply -f https://raw.githubusercontent.com/isimluk/vulnapp/master/vulnerable.example.yaml
+    wget -q -O /yaml/vulnerable.example.yaml https://raw.githubusercontent.com/isimluk/vulnapp/master/vulnerable.example.yaml
+    kubectl apply -f /yaml/vulnerable.example.yaml
+    kubectl wait --for=condition=ready service vulnerable-example-com
 }
 
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
@@ -100,6 +102,7 @@ main "$@" >> $LIVE_LOG 2>&1
 
 echo "Demo initialisation completed" >> $LIVE_LOG
 echo "To get pods run: sudo kubectl get pods" >> $LIVE_LOG
+echo "vulnerable.example.com is available at http://$(kubectl get service vulnerable-example-com  -o yaml -o=jsonpath="{.status.loadBalancer.ingress[0].ip}")/" >> $LIVE_LOG
 mv $LIVE_LOG $MOTD
 
 for pid in $(ps aux | grep tail.-f./etc/motd | awk '{print $2}'); do
