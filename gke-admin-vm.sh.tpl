@@ -18,7 +18,6 @@ main(){
 }
 
 deploy_falcon_container_sensor(){
-    mkdir -p /yaml
     injector_file="/yaml/injector.yaml"
     docker run --rm --entrypoint installer "$FALCON_IMAGE_URI" -cid "$CID" -image "$FALCON_IMAGE_URI" > "$injector_file"
     kubectl apply -f "$injector_file"
@@ -38,7 +37,6 @@ get_vulnerable_app_ip(){
 }
 
 deploy_vulnerable_app(){
-    wget -q -O /yaml/vulnerable.example.yaml https://raw.githubusercontent.com/isimluk/vulnapp/master/vulnerable.example.yaml
     kubectl apply -f /yaml/vulnerable.example.yaml
 }
 
@@ -57,12 +55,6 @@ push_falcon_sensor_to_gcr(){
 }
 
 download_falcon_sensor(){
-    gofalcon_version=0.2.2
-    pkg=gofalcon-$gofalcon_version-1.x86_64.deb
-    wget -q -O $pkg https://github.com/CrowdStrike/gofalcon/releases/download/v$gofalcon_version/$pkg
-    sudo apt install ./$pkg > /dev/null
-
-
     tmpdir=$(mktemp -d)
     pushd "$tmpdir" > /dev/null
       falcon_sensor_download --os-name=Container
@@ -87,6 +79,14 @@ fetch_falcon_secrets_from_gcp(){
 install_deps(){
     snap install docker
     snap install kubectl --classic
+
+    gofalcon_version=0.2.2
+    pkg=gofalcon-$gofalcon_version-1.x86_64.deb
+    wget -q -O $pkg https://github.com/CrowdStrike/gofalcon/releases/download/v$gofalcon_version/$pkg
+    apt install ./$pkg > /dev/null
+
+    mkdir -p /yaml
+    wget -q -O /yaml/vulnerable.example.yaml https://raw.githubusercontent.com/isimluk/vulnapp/master/vulnerable.example.yaml
 }
 
 progname=$(basename "$0")
