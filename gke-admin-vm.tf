@@ -36,6 +36,13 @@ resource "google_project_iam_binding" "gke-admin-vm-admins-clusters" {
   ]
 }
 
+resource "google_project_iam_binding" "gke-admin-vm-pushes-images" {
+  role    = "roles/storage.admin"
+  members = [
+    "serviceAccount:${google_service_account.gke-admin-vm.email}"
+  ]
+}
+
 data "template_file" "gke-admin-vm" {
   template = file("gke-admin-vm.sh.tpl")
   vars = {
