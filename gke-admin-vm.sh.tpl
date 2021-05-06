@@ -43,6 +43,7 @@ deploy_vulnerable_app(){
 }
 
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+export DEBIAN_FRONTEND=noninteractive
 
 configure_gke_access(){
     gcloud container clusters get-credentials "${CLUSTER_NAME}" --zone "${GCP_ZONE}"
