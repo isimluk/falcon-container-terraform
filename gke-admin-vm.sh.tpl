@@ -107,9 +107,11 @@ MOTD=/etc/motd
 LIVE_LOG=$MOTD.log
 
 echo "Welcome to the admin instance for your gke demo cluster. Installation log follows" > $LIVE_LOG
-echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && tail -f '$LIVE_LOG >> /etc/bash.bashrc
+echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && tail -n 1000 -f '$LIVE_LOG >> /etc/bash.bashrc
+: > $MOTD
 
 set -e -o pipefail
+
 main "$@" >> $LIVE_LOG 2>&1
 
 (
