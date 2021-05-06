@@ -39,6 +39,7 @@ resource "google_project_iam_binding" "gke-admin-vm-admins-clusters" {
 data "template_file" "gke-admin-vm" {
   template = file("gke-admin-vm.sh.tpl")
   vars = {
+    GCP_PROJECT = var.project_id
     GCP_ZONE = var.zone
     CLUSTER_NAME = google_container_cluster.primary.name
   }
