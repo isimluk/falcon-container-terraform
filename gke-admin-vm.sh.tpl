@@ -26,9 +26,9 @@ deploy_falcon_container_sensor(){
 }
 
 wait_for_vulnerable_app(){
+    echo "Waiting for GKE load balancer to assign public IP to vulnerable.example.com"
     while [ -z "$(get_vulnerable_app_ip)" ]; do
-        echo "Waiting for GKE load balancer to assign public IP to vulnerable.example.com"
-        sleep 10
+        sleep 5
     done;
 }
 
