@@ -28,7 +28,7 @@ deploy_falcon_container_sensor(){
 deploy_vulnerable_app(){
     wget -q -O /yaml/vulnerable.example.yaml https://raw.githubusercontent.com/isimluk/vulnapp/master/vulnerable.example.yaml
     kubectl apply -f /yaml/vulnerable.example.yaml
-    kubectl wait --for=condition=ready service vulnerable-example-com
+    kubectl wait --for=condition=ready --timeout=180s service vulnerable-example-com
 }
 
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
