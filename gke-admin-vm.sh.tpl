@@ -106,7 +106,11 @@ trap 'err_handler $LINENO' ERR
 MOTD=/etc/motd
 LIVE_LOG=$MOTD.log
 
-echo "Welcome to the admin instance for your gke demo cluster. Installation log follows" > $LIVE_LOG
+(
+    echo "--------------------------------------------------------------------------------------------"
+    echo "Welcome to the admin instance for your gke demo cluster. Installation log follows"
+    echo "--------------------------------------------------------------------------------------------"
+) > $LIVE_LOG
 echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && tail -n 1000 -f '$LIVE_LOG >> /etc/bash.bashrc
 : > $MOTD
 
@@ -118,7 +122,8 @@ main "$@" >> $LIVE_LOG 2>&1
     echo "--------------------------------------------------------------------------------------------"
     echo "Demo initialisation completed"
     echo "--------------------------------------------------------------------------------------------"
-    echo "vulnerable.example.com is available at      http://$(get_vulnerable_app_ip)/"
+    echo "vulnerable.example.com is available at http://$(get_vulnerable_app_ip)/"
+    echo "--------------------------------------------------------------------------------------------"
     echo "Useful commands:"
     echo "  # to get all running pods on the cluster"
     echo "  sudo kubectl get pods --all-namespaces"
@@ -127,7 +132,7 @@ main "$@" >> $LIVE_LOG 2>&1
     echo "  # to view Falcon injector logs"
     echo "  sudo kubectl logs -n falcon-system deploy/injector"
     echo "  # to uninstall the vulnerable.example.com"
-    echo "  sudo kubectl delete -f /yaml/vulnerable.example.com"
+    echo "  sudo kubectl delete -f /yaml/vulnerable.example.yaml"
     echo "  # to uninstall the falcon container protection"
     echo "  sudo kubectl delete -f /yaml/injector.yaml"
     echo "--------------------------------------------------------------------------------------------"
