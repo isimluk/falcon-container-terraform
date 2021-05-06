@@ -112,12 +112,24 @@ echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && t
 set -e -o pipefail
 main "$@" >> $LIVE_LOG 2>&1
 
-echo "----------------------------------------------------------------------------" >> $LIVE_LOG
-echo "Demo initialisation completed" >> $LIVE_LOG
-echo "----------------------------------------------------------------------------" >> $LIVE_LOG
-echo "vulnerable.example.com is available at      http://$(get_vulnerable_app_ip)/" >> $LIVE_LOG
-echo "To get running pods run                     sudo kubectl get pods" >> $LIVE_LOG
-echo "----------------------------------------------------------------------------" >> $LIVE_LOG
+(
+    echo "--------------------------------------------------------------------------------------------"
+    echo "Demo initialisation completed"
+    echo "--------------------------------------------------------------------------------------------"
+    echo "vulnerable.example.com is available at      http://$(get_vulnerable_app_ip)/"
+    echo "Useful commands:"
+    echo "  # to get all running pods on the cluster"
+    echo "  sudo kubectl get pods --all-namespaces"
+    echo "  # to get Falcon agent/host ID of vulnerable.example.com"
+    echo "  sudo kubectl exec deploy/vulnerable.example.com -c falcon-container -- falconctl -g --aid"
+    echo "  # to view Falcon injector logs"
+    echo "  sudo kubectl logs -n falcon-system deploy/injector"
+    echo "  # to uninstall the vulnerable.example.com"
+    echo "  sudo kubectl delete -f /yaml/vulnerable.example.com"
+    echo "  # to uninstall the falcon container protection"
+    echo "  sudo kubectl delete -f /yaml/injector.yaml"
+    echo "--------------------------------------------------------------------------------------------"
+) >> $LIVE_LOG
 
 mv $LIVE_LOG $MOTD
 
