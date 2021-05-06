@@ -112,9 +112,13 @@ echo 'ps aux | grep -v grep | grep -q google_metadata_script_runner.startup && t
 set -e -o pipefail
 main "$@" >> $LIVE_LOG 2>&1
 
+echo "----------------------------------------------------------------------------" >> $LIVE_LOG
 echo "Demo initialisation completed" >> $LIVE_LOG
-echo "To get pods run: sudo kubectl get pods" >> $LIVE_LOG
-echo "vulnerable.example.com is available at http://$(get_vulnerable_app_ip)/" >> $LIVE_LOG
+echo "----------------------------------------------------------------------------" >> $LIVE_LOG
+echo "vulnerable.example.com is available at      http://$(get_vulnerable_app_ip)/" >> $LIVE_LOG
+echo "To get running pods run                     sudo kubectl get pods" >> $LIVE_LOG
+echo "----------------------------------------------------------------------------" >> $LIVE_LOG
+
 mv $LIVE_LOG $MOTD
 
 for pid in $(ps aux | grep tail.-f./etc/motd | awk '{print $2}'); do
