@@ -11,9 +11,16 @@ This terraform demo
  * deploys Falcon Container sensor to the cluster
  * deploys vulnerable.example.com application
 
+User then may
+ * Show that container workload (vulnerable.example.com) appears in Falcon Console (under Hosts, or Containers Dashboard)
+ * Visit vulnerable.example.com application and exploit it through the web interface
+ * Show detections in Falcon Console
+
 ### Prerequsites
  - Get access to GCP
+ - Have Containers enabled in Falcon console (CWP subscription)
  - install terraform command-line tool
+   - install gcloud command-line tool (dependency of terraform)
 
 ### Usage
 
