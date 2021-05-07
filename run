@@ -13,7 +13,7 @@
 
 set -e -o pipefail
 
-git clone --depth 1 https://github.com/isimluk/falcon-container-terraform
+[ -d falcon-container-terraform ] || git clone --depth 1 https://github.com/isimluk/falcon-container-terraform
 cd falcon-container-terraform
 terraform init
 
