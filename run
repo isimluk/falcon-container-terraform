@@ -1,0 +1,35 @@
+!/bin/bash
+
+# -------
+# How to use this:
+#   1) Open your GCP cloud shell: https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal
+#   2) Verify that your active GCP project in uppper left corner is correct
+#   3) Verify that your identity in upper right corner is correct)
+#   4) Paste the following to your cloud shell
+#
+#          bash -c 'source <(curl -s https://raw.githubusercontent.com/isimluk/falcon-container-terraform/main/run)'
+#
+#
+
+set -e -o pipefail
+
+git clone --depth 1 https://github.com/isimluk/falcon-container-terraform
+cd falcon-container-terraform
+terraform init
+
+export TF_VAR_project_id=$(gcloud config get-value project)
+terraform apply
+
+cat <<__END__
+
+               _ _
+              (_) |             Your kubernetes cluster,
+__      ____ _ _| |_            Your admin vm,
+\ \ /\ / / _\` | | __|           Your Falcon Container Sensor,
+ \ V  V / (_| | | |_            and Your vulnerable application,
+  \_/\_/ \__,_|_|\__|           are all comming up.
+
+
+__END__
+sleep 60
+$(terraform output admin_access | tr -d '"')
