@@ -21,3 +21,10 @@ resource "google_project_service" "container" {
 
   disable_dependent_services = true
 }
+
+resource "google_project_service" "container" {
+  project = var.project_id
+  service = "containerregistry.googleapis.com"
+
+  disable_dependent_services = true
+}
