@@ -1,6 +1,6 @@
 # PLEASE change the following variables
 
-project_id = "mylab"
+# project_id =
 
 
 # Do not store secrets here Use environment variables instead
