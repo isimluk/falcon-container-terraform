@@ -18,6 +18,12 @@ cd falcon-container-terraform
 terraform init
 
 export TF_VAR_project_id=$(gcloud config get-value project)
+
+# terraform version in cloudshell brings bit of undeterminism with ipv6
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+
 terraform apply
 
 cat <<__END__
