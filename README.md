@@ -24,6 +24,17 @@ User then may
 
 ### Usage
 
+ - Open your GCP cloud shell: https://shell.cloud.google.com/?hl=en_US&fromcloudshell=true&show=terminal
+ - Verify that your active GCP project in uppper left corner is correct
+ - Verify that your identity in upper right corner is correct)
+ - Paste the following to your cloud shell
+```
+   bash -c 'source <(curl -s https://raw.githubusercontent.com/isimluk/falcon-container-terraform/main/run)'
+```
+
+
+### Developer guide
+
  - Spin up the demo
    ```
    terraform init
