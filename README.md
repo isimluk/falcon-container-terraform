@@ -1,4 +1,4 @@
-# Terraform for SE demo of Falcon Container Runtime Protection
+# Terraform to demo Falcon Container Runtime Protection
 
 This terraform demo
  * creates single GKE cluster
