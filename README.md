@@ -32,6 +32,11 @@ User then may
    bash -c 'source <(curl -s https://raw.githubusercontent.com/isimluk/falcon-container-terraform/main/run)'
 ```
 
+### Tear Down
+
+```
+cd ~/falcon-container-terraform; terraform destroy
+```
 
 ### Developer guide
 
