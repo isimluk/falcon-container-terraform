@@ -32,7 +32,7 @@ set -e -o pipefail
 cd falcon-container-terraform
 terraform init
 
-export TF_VAR_project_id=$(gcloud config get-value project)
+export TF_VAR_project_id=$(gcloud config get-value project 2> /dev/null)
 
 
 terraform apply
