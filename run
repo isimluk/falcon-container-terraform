@@ -19,7 +19,6 @@
       ipv4=$(getent ahostsv4 $name | head -n 1 | awk '{ print $1 }')
       grep -q $name /etc/hosts || ([ ! -z "ppv4" ] && sudo sh -c "echo '$ipv4 $name' >> /etc/hosts")
     done
-    cat /etc/hosts
 # Workaround end
 
 
