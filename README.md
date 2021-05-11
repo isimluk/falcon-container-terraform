@@ -31,7 +31,7 @@ User then may
  - Verify that your identity in upper right corner is correct)
  - Paste the following to your cloud shell
 ```
-   bash -c 'source <(curl -s https://raw.githubusercontent.com/isimluk/falcon-container-terraform/main/run)'
+bash -c 'source <(curl -s https://raw.githubusercontent.com/isimluk/falcon-container-terraform/main/run)'
 ```
 
 ### Tear Down
