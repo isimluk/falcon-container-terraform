@@ -24,11 +24,25 @@
 
 set -e -o pipefail
 
+if [ -z "$(gcloud config get-value project 2> /dev/null)" ]; then
+    project_ids=$(gcloud projects list --format json | jq -r '.[].projectId')
+    project_count=$(wc -w <<< "$project_ids")
+    if [ "$project_count" == "1" ]; then
+        gcloud config set project "$project_ids"
+    else
+        gcloud projects list
+        echo "Multiple pre-existing GCP projects found. Please select project using the following command before re-trying"
+        echo "  gcloud config set project VALUE"
+        exit 1
+   fi
+fi
+export TF_VAR_project_id=$(gcloud config get-value project 2> /dev/null)
+
+
 [ -d ~/falcon-container-terraform ] || (cd "$HOME" && git clone --depth 1 https://github.com/isimluk/falcon-container-terraform)
 cd ~/falcon-container-terraform
 terraform init
 
-export TF_VAR_project_id=$(gcloud config get-value project 2> /dev/null)
 
 
 terraform apply
