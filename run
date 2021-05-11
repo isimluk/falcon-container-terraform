@@ -46,3 +46,6 @@ __      ____ _ _| |_            Your admin vm,
 __END__
 sleep 60
 $(terraform output admin_access | tr -d '"')
+
+echo "Run To destroy the demo environment please run"
+echo "cd ~/falcon-container-terraform; terraform destroy"
