@@ -25,8 +25,8 @@
 
 set -e -o pipefail
 
-[ -d falcon-container-terraform ] || git clone --depth 1 https://github.com/isimluk/falcon-container-terraform
-cd falcon-container-terraform
+[ -d ~/falcon-container-terraform ] || git clone --depth 1 https://github.com/isimluk/falcon-container-terraform
+cd ~/falcon-container-terraform
 terraform init
 
 export TF_VAR_project_id=$(gcloud config get-value project 2> /dev/null)
