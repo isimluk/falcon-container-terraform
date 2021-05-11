@@ -21,8 +21,6 @@ User then may
 ### Prerequsites
  - Get access to GCP
  - Have Containers enabled in Falcon console (CWP subscription)
- - install terraform command-line tool
-   - install gcloud command-line tool (dependency of terraform)
 
 ### Usage
 
