@@ -16,8 +16,8 @@
     export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
     for name in $APIS
     do
-      ipv4=$(getent ahostsv4 $name | head -n 1 | awk '{ print $1 }')
-      grep -q $name /etc/hosts || ([ ! -z "ppv4" ] && sudo sh -c "echo '$ipv4 $name' >> /etc/hosts")
+      ipv4=$(getent ahostsv4 "$name" | head -n 1 | awk '{ print $1 }')
+      grep -q "$name" /etc/hosts || ([ ! -z "ppv4" ] && sudo sh -c "echo '$ipv4 $name' >> /etc/hosts")
     done
 # Workaround end
 
