@@ -19,3 +19,9 @@ resource "google_project_service" "container" {
   project = var.project_id
   service = "container.googleapis.com"
 }
+
+resource "google_project_service" "containerregistry" {
+  project = var.project_id
+  service = "containerregistry.googleapis.com"
+}
+
