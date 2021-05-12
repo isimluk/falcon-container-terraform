@@ -59,7 +59,14 @@ __      ____ _ _| |_            Your admin vm,
 
 __END__
 sleep 10
+
+ssh_key=$HOME/.ssh/container_lab_ssh_key
+if ! [ -f "$ssh_key" ]; then
+    ssh-keygen -t rsa -b 1024 -N '' -f "$ssh_key"
+    gcloud compute config-ssh --ssh-key-file="$ssh_key"
+fi
 $(terraform output admin_access | tr -d '"')
 
-echo "Run To destroy the demo environment please run"
+echo "--------------------------------------------------"
+echo "To destroy the demo environment please run"
 echo "cd ~/falcon-container-terraform; terraform destroy"
