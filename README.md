@@ -67,5 +67,4 @@ cd ~/falcon-container-terraform; terraform destroy
 
 ### Known limitations
 
- - Currently, each demo instance needs to be spun up in separate GCP project.
  - This is early version. Please report or even fix issues.
