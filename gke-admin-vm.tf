@@ -1,5 +1,5 @@
 resource "google_compute_instance" "vm_instance" {
-  name         = "gke-admin-vm"
+  name         = "${var.tenant}-demo-admin-vm"
   machine_type = "f1-micro"
   zone         = var.zone
 
@@ -25,7 +25,7 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 resource "google_service_account" "gke-admin-vm" {
-  account_id   = "se-demo-gke-admin-vm"
+  account_id   = "${var.tenant}-demo-admin-vm"
   display_name = "Service Account for GKE Admin VM"
 }
 
@@ -49,5 +49,6 @@ data "template_file" "gke-admin-vm" {
     GCP_PROJECT = var.project_id
     GCP_ZONE = var.zone
     CLUSTER_NAME = google_container_cluster.primary.name
+    tenant = var.tenant
   }
 }

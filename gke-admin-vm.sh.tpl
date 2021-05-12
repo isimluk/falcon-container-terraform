@@ -65,10 +65,10 @@ download_falcon_sensor(){
 
 fetch_falcon_secrets_from_gcp(){
     set +x
-    FALCON_CLIENT_ID=$(gcloud secrets versions access latest --secret="FALCON_CLIENT_ID")
-    FALCON_CLIENT_SECRET=$(gcloud secrets versions access latest --secret="FALCON_CLIENT_SECRET")
-    FALCON_CLOUD=$(gcloud secrets versions access latest --secret="FALCON_CLOUD")
-    CID=$(gcloud secrets versions access latest --secret="FALCON_CID")
+    FALCON_CLIENT_ID=$(gcloud secrets versions access latest --secret="${tenant}-FALCON_CLIENT_ID")
+    FALCON_CLIENT_SECRET=$(gcloud secrets versions access latest --secret="${tenant}-FALCON_CLIENT_SECRET")
+    FALCON_CLOUD=$(gcloud secrets versions access latest --secret="${tenant}-FALCON_CLOUD")
+    CID=$(gcloud secrets versions access latest --secret="${tenant}-FALCON_CID")
     export FALCON_CLIENT_ID
     export FALCON_CLIENT_SECRET
     export FALCON_CLOUD

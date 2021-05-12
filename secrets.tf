@@ -18,10 +18,11 @@ variable "falcon_cid" {
 resource "google_project_service" "secretmanager" {
   provider = google
   service  = "secretmanager.googleapis.com"
+  disable_on_destroy = false
 }
 
 resource "google_secret_manager_secret" "FALCON_CLIENT_ID" {
-  secret_id = "FALCON_CLIENT_ID"
+  secret_id = "${var.tenant}-FALCON_CLIENT_ID"
 
   replication {
     automatic = true
@@ -31,7 +32,7 @@ resource "google_secret_manager_secret" "FALCON_CLIENT_ID" {
 }
 
 resource "google_secret_manager_secret" "FALCON_CLIENT_SECRET" {
-  secret_id = "FALCON_CLIENT_SECRET"
+  secret_id = "${var.tenant}-FALCON_CLIENT_SECRET"
 
   replication {
     automatic = true
@@ -41,7 +42,7 @@ resource "google_secret_manager_secret" "FALCON_CLIENT_SECRET" {
 }
 
 resource "google_secret_manager_secret" "FALCON_CLOUD" {
-  secret_id = "FALCON_CLOUD"
+  secret_id = "${var.tenant}-FALCON_CLOUD"
 
   replication {
     automatic = true
@@ -51,7 +52,7 @@ resource "google_secret_manager_secret" "FALCON_CLOUD" {
 }
 
 resource "google_secret_manager_secret" "FALCON_CID" {
-  secret_id = "FALCON_CID"
+  secret_id = "${var.tenant}-FALCON_CID"
 
   replication {
     automatic = true
