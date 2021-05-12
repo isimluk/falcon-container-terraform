@@ -53,8 +53,10 @@ configure_gke_access(){
 push_falcon_sensor_to_gcr(){
     FALCON_IMAGE_URI="gcr.io/${GCP_PROJECT}/falcon-sensor:latest"
     docker tag "falcon-sensor:$local_tag" "$FALCON_IMAGE_URI"
-    gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-    docker push "$FALCON_IMAGE_URI"
+    while ! docker push "$FALCON_IMAGE_URI"; do
+        sleep 10
+        gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+    done
 }
 
 download_falcon_sensor(){
