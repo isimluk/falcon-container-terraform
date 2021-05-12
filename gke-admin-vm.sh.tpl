@@ -9,7 +9,6 @@ main(){
     fetch_falcon_secrets_from_gcp
     download_falcon_sensor
     push_falcon_sensor_to_gcr
-    configure_gke_access
 
     deploy_falcon_container_sensor
     deploy_vulnerable_app
@@ -20,6 +19,8 @@ main(){
 deploy_falcon_container_sensor(){
     injector_file="/yaml/injector.yaml"
     docker run --rm --entrypoint installer "$FALCON_IMAGE_URI" -cid "$CID" -image "$FALCON_IMAGE_URI" > "$injector_file"
+
+    configure_gke_access
     kubectl apply -f "$injector_file"
 
     kubectl wait --for=condition=ready pod -n falcon-system -l app=injector
@@ -44,7 +45,9 @@ export CLOUDSDK_CORE_DISABLE_PROMPTS=1
 export DEBIAN_FRONTEND=noninteractive
 
 configure_gke_access(){
-    gcloud container clusters get-credentials "${CLUSTER_NAME}" --zone "${GCP_ZONE}"
+    while ! gcloud container clusters get-credentials "${CLUSTER_NAME}" --zone "${GCP_ZONE}"; do
+        sleep 7
+    done
 }
 
 push_falcon_sensor_to_gcr(){

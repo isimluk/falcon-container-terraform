@@ -48,7 +48,7 @@ data "template_file" "gke-admin-vm" {
   vars = {
     GCP_PROJECT = var.project_id
     GCP_ZONE = var.zone
-    CLUSTER_NAME = google_container_cluster.primary.name
+    CLUSTER_NAME = "${var.tenant}-demo"
     tenant = var.tenant
   }
 }
