@@ -123,11 +123,19 @@ set -e -o pipefail
 
 main "$@" >> $LIVE_LOG 2>&1
 
+detection_uri(){
+    aid=$(
+        kubectl exec deploy/vulnerable.example.com -c falcon-container -- \
+            falconctl -g --aid | awk -F '"' '{print $2}')
+    echo "https://falcon.crowdstrike.com/activity/detections/?filter=device_id:%27$aid%27&groupBy=none"
+}
+
 (
     echo "--------------------------------------------------------------------------------------------"
     echo "Demo initialisation completed"
     echo "--------------------------------------------------------------------------------------------"
     echo "vulnerable.example.com is available at http://$(get_vulnerable_app_ip)/"
+    echo "detections will appear at $(detection_uri)"
     echo "--------------------------------------------------------------------------------------------"
     echo "Useful commands:"
     echo "  # to get all running pods on the cluster"
